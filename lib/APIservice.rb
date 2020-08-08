@@ -1,25 +1,19 @@
 module SuperFunny
     class APIService
-
-
-        
-        def fetch_jokes
-            uri = URI("https://official-joke-api.appspot.com/jokes/random")
-
-            response = Net::HTTP.get_response(uri)
-            parsed_response = JSON.parse(response.body)
-
-        end
-
-        def make_jokes
-            Joke.new_from_api(fetch_jokes)
-            puts parsed_response["type"]
-            puts parsed_response["setup"]
-            puts parsed_response["punchline"]
-        end
-    
-
-
+        def get_data
+            response = RestClient.get("https://sv443.net/jokeapi/v2/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist&type=twopart&amount=10")
+            jokes = JSON.parse(response.body)["jokes"]
+            jokes = jokes
+            jokes.each do |joke|
+                Joke.new(joke)
+            end
+        end    
     end
-end
+end  
+
+
+
+
+
+
 

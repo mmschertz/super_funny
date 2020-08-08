@@ -1,38 +1,148 @@
-module SuperFunny
-    class CLI
 
-    def call
-       # APIService.new.make_jokes
-        puts "Welcome to Super Funny!"
-        input = nil
-        while input != "exit"
-            puts "Type 'general' for a general joke or type 'programming' for a programming joke"
+
+module SuperFunny
+    class CLI 
+
+        def call
+            puts "Welcome to Super Funny!"
+
+            menu
+        end
+
+
+
+
+        def menu(data = nil)
+            data = APIService.new.get_data
+            categories = data.map{|d| d["category"]}.uniq
+            puts " "
+            puts "If you want to hear a joke type 'joke' "
             puts "Type 'exit' to exit"
+            puts " "
             input = gets.chomp.downcase
-            case input
-            when "general"
-                general_joke
-            when "programming"
-                programming_joke
-            when "exit"
-                puts "Goodbye!"
+                if input == "joke"
+                category_list(data)    
+            elsif input == "exit"
+                goodbye
             else
-                puts "Sorry, don't understand".red
+                invalid_entry
+                menu
             end
         end
 
+        def category_list(data) 
+            categories = data.map{|d| d["category"]}.uniq
+            puts " "
+            puts "Please type the number you're interested in!".yellow
+            categories.each.with_index(1) {|category, index| puts "#{index}. #{category}"}
+            input = gets.chomp.to_i
+
+            if input <= data.size && input > 0
+                index = input-1
+                puts "You selected #{categories[index]}"
+                print_setup(data)
+                print_delivery(data)
+            else
+                invalid_entry
+                call
+                menu
+            end
+        end
+
+        def print_setup(data)
+            setups = data.map{ |d| d["setup"]}
+            setups.each { |setup| puts "#{setup}"}
+            puts " "
+        end
+
+        def print_delivery(data)
+            deliveries = data.map{ |d| d["delivery"]}
+            deliveries.each { |delivery| puts "#{delivery}"}
+            puts " "
+            menu
+        end
+
+        def invalid_entry
+            puts " "
+            puts "Invalid entry, try again".red
+            puts " "
+            menu
+        end
+
+        def goodbye
+            puts "Goodbye!".green
+            exit
+        end
+
     end
-
-    def general_joke
-        puts "Here you go!"
-        Joke
-    end
-
-    def programming_joke
-        puts "Here you go!"
-    end
-
-
-
 end
-end
+
+
+
+
+
+# module SuperFunny
+#     class CLI 
+
+#         def call
+#             puts "If you want to hear a joke type 'joke'."
+#             puts "Type 'exit' to exit"
+#             APIService.new.get_data
+#             menu
+#         end
+
+#         def menu
+#             input = gets.chomp.downcase
+#                 if input == "joke"
+#                 category_list
+#                 menu
+#             elsif input == "exit"
+#                 goodbye
+#             else
+#                 invalid_entry
+#                 call
+#             end
+#         end
+
+
+#         def category_list
+
+#             Joke.all.each.with_index(1) do |joke, i|
+#                 puts "#{i}. #{joke.category}"
+#             end
+#             puts " "
+#             puts " "
+#             puts "Enter the type of joke you would like to hear:"
+
+            
+#             input = gets.strip
+#             joke_selection(input)
+#             # else
+#             #     invalid_entry
+#             #     call
+#             #     menu
+#             # end
+            
+#         end
+
+#         def joke_selection(joke)
+#             puts "#{joke}"
+#          end
+
+#         # def display_joke(joke)
+#         #     puts "#{joke.setup}"
+#         #     puts "#{joke.delivery}"
+#         # end
+
+#         def goodbye
+#             puts "Goodbye!".green
+#         end
+
+#         def invalid_entry
+#             puts "Invalid entry, try again".red
+#             call
+#         end
+
+#     end
+# end
+

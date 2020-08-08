@@ -1,32 +1,25 @@
 module SuperFunny
     class Joke
-        attr_accessor :type, :setup, :punchline
+        attr_accessor :setup, :delivery, :category, :id, :type, :flags, :lang
         @@all = []
 
         def initialize(attributes)
-            @type = type
-            @setup = setup
-            @punchline = punchline
-            @@all <<self
+            attributes.each { |k, v| send("#{k}=", v)}
+            @@all << self
         end
-
-        # def add_color
-        #     case 
+        
+        # def self.find_by_category(category)
+        #     self.all.select do |category|
+        #         joke.category == category
+        #     end
         # end
-
-        def self.general
-    
-        end
 
         def self.all
             @@all
         end
 
-        # def self.new_from_api(jokes)
-        #     jokes.each { |joke| new(joke)}
-        # end
-    
-
-
+        def self.find_by_index(index)
+            @@all[index]
+        end
     end
 end

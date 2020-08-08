@@ -29,5 +29,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "pry"
   spec.add_development_dependency "colorize"
+  spec.add_development_dependency "httparty"
+  spec.add_development_dependency "rest-client"
+  
 end
 
