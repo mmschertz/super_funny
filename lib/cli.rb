@@ -5,12 +5,8 @@ module SuperFunny
 
         def call
             puts "Welcome to Super Funny!"
-
             menu
         end
-
-
-
 
         def menu(data = nil)
             data = APIService.new.get_data
@@ -64,7 +60,7 @@ module SuperFunny
 
         def invalid_entry
             puts " "
-            puts "Invalid entry, try again".red
+            puts "Invalid entry, please try again".red
             puts " "
             menu
         end

@@ -4,15 +4,11 @@ module SuperFunny
         @@all = []
 
         def initialize(attributes)
-            attributes.each { |k, v| send("#{k}=", v)}
+            @setup = setup
+            @delivery = delivery
+            @category = category
             @@all << self
         end
-        
-        # def self.find_by_category(category)
-        #     self.all.select do |category|
-        #         joke.category == category
-        #     end
-        # end
 
         def self.all
             @@all
@@ -21,5 +17,32 @@ module SuperFunny
         def self.find_by_index(index)
             @@all[index]
         end
+
+        # def self.pun_joke
+        #     @@all.select do |joke|
+        #         joke.category.include?("Pun")
+        #     end
+        # end
+
+        # def self.dark_joke
+        #     @@all.select do |joke|
+        #         joke.category.include?("Dark")
+        #     end
+        # end
+
+        # def self.programming_joke
+        #     @@all.select do |joke|
+        #         joke.category.include?("Programming")
+    
+        #     end
+        # end
+
+        # def self.miscellaneous_joke
+        #     @@all.select do |joke|
+        #         joke.category.include?("Miscellaneous")
+        #     end
+        # end
+
+        
     end
 end
