@@ -12,7 +12,7 @@ module SuperFunny
             data = APIService.new.get_data
             categories = data.map{|d| d["category"]}.uniq
             puts " "
-            puts "If you want to hear a joke type 'joke' "
+            puts "If you want to laugh type 'joke' "
             puts "Type 'exit' to exit"
             puts " "
             input = gets.chomp.downcase
@@ -29,15 +29,18 @@ module SuperFunny
         def category_list(data) 
             categories = data.map{|d| d["category"]}.uniq
             puts " "
-            puts "Please type the number you're interested in!".yellow
+            puts "Please type the number of the type of jokes you would like to hear:".yellow
             categories.each.with_index(1) {|category, index| puts "#{index}. #{category}"}
+            puts " "
             input = gets.chomp.to_i
 
             if input <= data.size && input > 0
                 index = input-1
-                puts "You selected #{categories[index]}"
-                print_setup(data)
-                print_delivery(data)
+                puts " "
+                puts "You selected #{categories[index]}".yellow
+                puts " "
+                category_selection(data, categories[index])
+
             else
                 invalid_entry
                 call
@@ -45,18 +48,17 @@ module SuperFunny
             end
         end
 
-        def print_setup(data)
-            setups = data.map{ |d| d["setup"]}
-            setups.each { |setup| puts "#{setup}"}
-            puts " "
-        end
-
-        def print_delivery(data)
-            deliveries = data.map{ |d| d["delivery"]}
-            deliveries.each { |delivery| puts "#{delivery}"}
-            puts " "
+        def category_selection(data, input)
+            data.select do |j|
+                if j["category"] == input
+                    puts j["setup"].blue
+                    puts j["delivery"].magenta
+                    puts " "
+                end
+            end
             menu
         end
+
 
         def invalid_entry
             puts " "
