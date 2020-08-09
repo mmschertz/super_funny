@@ -1,6 +1,6 @@
 module SuperFunny
     class Joke
-        attr_accessor :setup, :delivery, :category, :id, :type, :flags, :lang
+        attr_accessor :setup, :delivery, :category
         @@all = []
 
         def initialize(attributes)
@@ -13,7 +13,6 @@ module SuperFunny
         def self.all
             @@all
         end
-
         
     end
 end

@@ -5,7 +5,6 @@ module SuperFunny
             jokes = JSON.parse(response.body)["jokes"]
             jokes.each do |joke|
                 Joke.new(joke)
-
             end
         end    
     end

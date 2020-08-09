@@ -12,8 +12,8 @@ module SuperFunny
             data = APIService.new.get_data
             categories = data.map{|d| d["category"]}.uniq
             puts " "
-            puts "If you want to laugh type 'joke' "
-            puts "Type 'exit' to exit"
+            puts "If you want to laugh type 'joke' ".yellow
+            puts "Type 'exit' to exit".yellow
             puts " "
             input = gets.chomp.downcase
                 if input == "joke"
@@ -34,7 +34,7 @@ module SuperFunny
             puts " "
             input = gets.chomp.to_i
 
-            if input <= data.size && input > 0
+            if input > 0
                 index = input-1
                 puts " "
                 puts "You selected #{categories[index]}".yellow
@@ -43,16 +43,16 @@ module SuperFunny
 
             else
                 invalid_entry
-                call
                 menu
             end
         end
 
         def category_selection(data, input)
-            data.select do |j|
-                if j["category"] == input
-                    puts j["setup"].blue
-                    puts j["delivery"].magenta
+            data.select do |joke|
+                if joke["category"] == input
+                    puts joke["setup"].blue
+                    puts joke["delivery"].magenta
+                    puts " "
                     puts " "
                 end
             end
@@ -71,7 +71,6 @@ module SuperFunny
             puts "Goodbye!".green
             exit
         end
-
     end
 end
 

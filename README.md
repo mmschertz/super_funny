@@ -8,7 +8,7 @@ Add this line to your application's Gemfile:
 
 ```ruby
 gem 'super_funny'
-gem '
+
 ```
 
 And then execute:
@@ -21,9 +21,9 @@ Or install it yourself as:
 
 ## Usage
 
-$ super-funny
+$ super_funny
 
-When you need a laugh
+
 
 
 ## Contributing
